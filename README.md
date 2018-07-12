@@ -11,19 +11,19 @@ $ apt update
 $ apt upgrade
 $ apt install python
 $ apt install git
-$ git clone https://github.com/muhmursalind/HelloWorld
-$ cd HelloWorld
+$ git clone https://github.com/PHIEZUKE/selfBOT
+$ cd selfBOT
 $ python -m pip install -r requirements.txt
-$ python helloworld.py
+$ python selfBOT.py
 ```
 
 ## Installation for VPS
 
 ```sh
-$ git clone https://github.com/muhmursalind/HelloWorld
-$ cd HelloWorld
+$ git clone https://github.com/PHIEZUKE/selfBOT
+$ cd selfBOT
 $ python3 -m pip install -r requirements.txt
-$ python3 helloworld.py
+$ python3 selfBOT.py
 ```
 
 ## Attention
