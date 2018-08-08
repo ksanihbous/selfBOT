@@ -14,7 +14,7 @@ $ apt install git
 $ git clone https://github.com/PHIEZUKE/selfBOT
 $ cd selfBOT
 $ python -m pip install -r requirements.txt
-$ python selfBOT.py
+$ python SELFBOT.py
 ```
 
 ## Installation for VPS
@@ -23,7 +23,7 @@ $ python selfBOT.py
 $ git clone https://github.com/PHIEZUKE/selfBOT
 $ cd selfBOT
 $ python3 -m pip install -r requirements.txt
-$ python3 selfBOT.py
+$ python3 SELFBOT.py
 ```
 # SEMUA AKAN MATI PADA WAKTUNYA
 ## Attention
