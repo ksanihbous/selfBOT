@@ -31,10 +31,10 @@ $ python3 SELFBOT.py
 for the first time running python selfBOT.py will be an error
 
 ## LINE
-[LINE Square](https://line.me/ti/g2/OPHPUEI1EI)
+[LINE OA](https://line.me/ti/p/~qqo7303u)
 
 ## Discord
-[HelloWorld](https://discord.gg/5jqbutB)
+[PH-13](https://discord.gg/5jqbutB)
 
 ## Thanks For Author linepy
-Fadhiil Rachman / [@fadhiilrachman](https://www.instagram.com/)
+Fadhiil Rachman / [@fadhiilrachman](https://www.instagram.com/me)
