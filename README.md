@@ -12,8 +12,6 @@ $ apt upgrade
 $ apt install python
 $ apt install git
 $ git clone https://github.com/PHIEZUKE/selfBOT
-$ cd selfBOT
-$ python -m pip install -r requirements.txt
 $ pip3 install beautifulsoup4==4.6.0
 $ pip3 install bs4==0.0.1
 $ pip3 install certifi==2018.4.16
@@ -29,6 +27,7 @@ $ pip3 install requests==2.19.1
 $ pip3 install rsa==3.4.2
 $ pip3 install six==1.11.0
 $ pip3 install urllib3==1.23
+$ cd selfBOT
 $ python SELFBOT.py
 ```
 
@@ -36,8 +35,6 @@ $ python SELFBOT.py
 
 ```sh
 $ git clone https://github.com/PHIEZUKE/selfBOT
-$ cd selfBOT
-$ python3 -m pip install -r requirements.txt
 $ pip install beautifulsoup4==4.6.0
 $ pip install bs4==0.0.1
 $ pip install certifi==2018.4.16
@@ -53,6 +50,7 @@ $ pip install requests==2.19.1
 $ pip install rsa==3.4.2
 $ pip install six==1.11.0
 $ pip install urllib3==1.23
+$ cd selfBOT
 $ python3 SELFBOT.py
 ```
 # SEMUA AKAN MATI PADA WAKTUNYA
