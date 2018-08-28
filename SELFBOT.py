@@ -403,7 +403,7 @@ def clientBot(op):
 				client.acceptGroupInvitation(op.param1)
 				client.sendMention(op.param1, settings["autoJoinMessage"], [op.param2])
 
-		if op.type == 26:
+		if op.type == 25:
 			try:
 				print("[ 26 ] SEND MESSAGE")
 				msg = op.message
