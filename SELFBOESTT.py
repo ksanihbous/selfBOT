@@ -472,8 +472,119 @@ def clientBot(op):
 							name = contact.displayName
 							link = "https://pa1.narvii.com/6547/d29a5e4bb3405d83fc15cf50ec057f41640618a8_hq.gif"
 							client.sendFooter(to, helpTranslate, icon, name, link)
-
-
+						elif cmd == "me.":
+							_session = requests.session()
+							image = "https://lh3.googleusercontent.com/proxy/-qcXIaVI5RPLI_rZgSi8T-QyHCDuVXRoFQUksJ2tzKKOGt8vGLQ6EW7yZBO9SIpQ0b5GlZgahj8S4lENJRr2PDK7jN-vPImkR628uGfvOlr3HpSjBCWrGfCGiOsj9pT7PjH8OuZ6bZ7_9RB7tTeUcmld8U5z=w256-h256-nc"
+							url = "https://game.linefriends.com/jbp-lcs-ranking/lcs/sendMessage"
+							headers = {
+								"Host": "game.linefriends.com",
+								"Content-Type": "application/json",
+								"User-Agent": "Mozilla/5.0",
+								"Referer": "https://game.linefriends.com/cdn/jbp-lcs/"
+							}
+							jsonData = {
+								"cc": channelToken.token,
+								#contact = client.getContact(msg._from)
+								"to": to,
+								"messages": [
+                                                              {
+                                                                   "type": "flex",
+                                                                   "altText": "AR SAYANG KAMU",
+                                                                   "contents": {
+                                                                       "type": "bubble",
+                                                                       "hero": {
+                                                                               "type": "image",
+                                                                               "url": "https://obs.line-scdn.net/{}".format(contact.picturePath),
+                                                                               "size": "full",
+                                                                               "aspectRatio": "1.51:1",
+                                                                               "aspectMode": "cover",
+                                                                       },
+                                                                       "body": {
+                                                                               "type": "box",
+                                                                               "layout": "vertical",
+                                                                               "contents": [
+                                                                                  {
+                                                                                    "type": "text",
+                                                                                    "text": "Detail Profile",
+                                                                                    "size": "xl",
+                                                                                    "weight": "bold",
+                                                                                    "wrap": True
+                                                                                  },
+                                                                                  {
+                                                                                    "type": "text",
+                                                                                    "text": " MID:\n {}\n\n Nama:\n  {}\n\nStatus:\n  {}".format(contact.mid,contact.displayName,contact.statusMessage),
+                                                                                    "wrap": True
+                                                                                  }
+                                                                               ]
+                                                                       },
+                                                                       "footer": {
+                                                                               "type": "box",
+                                                                               "layout": "vertical",
+                                                                               "spacing": "md",
+                                                                               "contents": [
+                                                                                  {
+                                                                                    "type": "button",
+                                                                                    "style": "primary",
+                                                                                    "action": {
+                                                                                        "type": "uri",
+                                                                                        "label": "Profile",
+                                                                                        "uri": "line://nv/profile"
+                                                                                     }
+                                                                                  },
+                                                                                  {
+                                                                                    "type": "button",
+                                                                                    "style": "primary",
+                                                                                    "action": {
+                                                                                        "type": "uri",
+                                                                                        "label": "Creator",
+                                                                                        "uri": "https://line.me/ti/p/~mase-pesek"
+                                                                                     }
+                                                                                  }
+                                                                               ]
+                                                                       }
+                                                                   }
+                                                              }
+                                                           ]
+                                                       }	
+							data = json.dumps(jsonData)
+							sendPost= _session.post(url, data=data, headers=headers)	
+						if cmd == "pagi":
+						  #if msg.from in admin:
+							_session = requests.session()
+							image = "https://media1.tenor.com/images/5c91188d03c8283d116712aae39f1d26/tenor.gif?itemid=9878457"
+							url = "https://game.linefriends.com/jbp-lcs-ranking/lcs/sendMessage"
+							headers = {
+								"Host": "game.linefriends.com",
+								"Content-Type": "application/json",
+								"User-Agent": "Mozilla/5.0",
+								"Referer": "https://game.linefriends.com/cdn/jbp-lcs/"
+							}
+							jsonData = {
+								"cc": channelToken.token,
+								"to": to,
+								"messages": [
+									  {
+											"type": "template",
+											"altText": "ar sayang kamu",
+											"template": {
+												"type": "image_carousel",
+												"columns": [
+													{
+														"imageUrl": "https://media1.tenor.com/images/5c91188d03c8283d116712aae39f1d26/tenor.gif?itemid=9878457",
+														"action": {
+															"type": "uri",
+															"uri": "https://line.me/ti/p/~mase-pesek" 
+														}
+													}
+												]
+											}
+										}
+								]
+							}
+							data = json.dumps(jsonData)
+							sendPost = _session.post(url, data=data, headers=headers)
+							
+						
 						elif cmd == "status":
 							try:
 								ret_ = "╔════➢ Status "
@@ -1518,6 +1629,23 @@ def clientBot(op):
 								del unsend[sender]
 							except:
 								client.deleteFile(unsend[sender]["image"])
+								del unsend[sender]
+						elif "stiker" in unsend[sender]:
+							try:
+								sendTime = unsendTime - unsend[sender]["time"]
+								sendTime = timeChange(sendTime)
+								ret_ = "╔════➢ Unsend Message "
+								ret_ += "\n╠ Sender : @!"
+								ret_ += "\n╠ Time : {} yang lalu".format(sendTime)
+								ret_ += "\n╠ Type : sticker"
+								ret_ += "\n╠ Text : None"
+								ret_ += "\n╚════➢ Finish "
+								client.sendMention(to, ret_, [contact.mid])
+								client.sendImage(to, unsend[sender]["sticker"])
+								client.deleteFile(unsend[sender]["sticker"])
+								del unsend[sender]
+							except:
+								client.deleteFile(unsend[sender]["sticker"])
 								del unsend[sender]
 					else:
 						client.sendMessage(to, "Data unsend tidak ditemukan")
