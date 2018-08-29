@@ -15,11 +15,11 @@ try:
 				with open("authToken.txt", "r") as token:
 					authToken = token.read()
 					if not authToken:
-						client = LINE()   #PH-13
+						client = LINE("EwWb6BCwJG0fHV9owv5b.Sp/s6yipA4kI8lGDz1Jc/W.YhyM6+FHSoYlQrfAEwzYi4d4O316q1ZG07vZToZB3EY=")   #PH-13
 						with open("authToken.txt","w") as token:
 							token.write(client.authToken)
 						continue
-					client = LINE(authToken, speedThrift=False, appName="{}\t2.1.5\tPH-13\t1".format(app))
+					client = LINE(authToken, speedThrift=False, appName="{}\t2.1.5\tHelloWorld\t11.2.5".format(app))
 				break
 			except Exception as error:
 				print(error)
