@@ -1,4 +1,6 @@
 {
+    "CPict2": true,
+    "CVid2": false,
     "autoAdd": false,
     "autoAddMessage": "Halo @!, terimakasih telah menambahkan saya sebagai teman,sudah ku addback kok ..salken ya..",
     "autoJoin": false,
@@ -9,10 +11,12 @@
     "autoResponMessage": "Heh @!, ngapain tag-tag di ROOM ,udah kayak BOT aja...",
     "changeGroupPicture": [],
     "changePictureProfile": false,
+    "changevp": true,
     "checkContact": false,
     "checkPost": false,
     "checkSticker": false,
     "detectUnsend": false,
+    "fotterlink": "https://www.instagram.com/phie_cobain",
     "keyCommand": "",
     "mimic": {
         "status": false,
