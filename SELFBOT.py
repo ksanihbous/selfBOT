@@ -41,7 +41,6 @@ clientPoll = OEPoll(client)
 
 languageOpen = codecs.open("language.json","r","utf-8")
 tagmeOpen = codecs.open("tag.json","r","utf-8")
-blacklistOpen = codecs.open("blacklist.json","r","utf-8")
 setting2Open = codecs.open("setting2.json","r","utf-8")
 readOpen = codecs.open("read.json","r","utf-8")
 settingsOpen = codecs.open("setting.json","r","utf-8")
@@ -49,7 +48,6 @@ unsendOpen = codecs.open("unsend.json","r","utf-8")
 
 language = json.load(languageOpen)
 tagme = json.load(tagmeOpen)
-blacklist = json.load(blacklistOpen)
 setting2 = json.load(setting2Open)
 read = json.load(readOpen)
 settings = json.load(settingsOpen)
@@ -194,6 +192,7 @@ def menuHelp():
 				"╠ " + key + "MemList" + "\n" + \
 				"╠ " + key + "PendingList" + "\n" + \
 				"╠ " + key + "GInfo" + "\n" + \
+				"╠ " + key + "Unsend 「*」" + "\n" + \
 				"╠ " + key + "GroupBc: 「Text」" + "\n" + \
 				"╠ " + key + "ChangeGPict" + "\n" + \
 				"╠════➢ Special Command " + "\n" + \
@@ -201,6 +200,8 @@ def menuHelp():
 				"╠ " + key + "MicList" + "\n" + \
 				"╠ " + key + "MicAdd @Mention" + "\n" + \
 				"╠ " + key + "MicDel @Mention" + "\n" + \
+				"╠ " + key + "Delmentionme" + "\n" + \
+				"╠ " + key + "Mentionme" + "\n" + \
 				"╠ " + key + "Mentionall" + "\n" + \
 				"╠ " + key + "Lurk 「On/Off」" + "\n" + \
 				"╠ " + key + "Lurking" + "\n" + \
@@ -1002,18 +1003,6 @@ def clientBot(op):
 								thread1.start()
 								thread1.join()
 							client.sendMessage(to, "「UNSEND」\nSuccess unsend {} message.".format(len(MId)))
-						elif cmd == "dusta on":
-								if to in detectUnsend:
-									client.sendMessage(to, "「DETECT UNSEND」\nDetect unsend telah aktif di group {}".format(client.getGroup(to).name))
-								else:
-									detectUnsend.append(to)
-									client.sendMessage(to, "「DETECT UNSEND」\nBerhasil mengaktifkan detect unsend di group {}".format(client.getGroup(to).name))
-						elif cmd == "dusta off":
-								if to in detectUnsend:
-									detectUnsend.remove(to)
-									client.sendMessage(to, "「DETECT UNSEND」\nBerhasil menonaktifkan detect unsend di group {}".format(client.getGroup(to).name))
-								else:
-									client.sendMessage(to, "「DETECT UNSEND」\nDetect unsend telah nonaktif di group {}".format(client.getGroup(to).name))
 						elif cmd == "delmentionme":
 								del tagme['ROM'][to]
 								client.sendMessage(to, "「DEL MENTIONME」\nBerhasil menghapus data Mention di group \n{}".format(client.getGroup(to).name))
