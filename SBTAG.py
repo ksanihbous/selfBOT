@@ -58,7 +58,7 @@ unsend = json.load(unsendOpen)
 offbot = []
 detectUnsend = []
 simisimi = []
-owner = ("ube187443474747c3ec352e7efeb48c1b")
+owner = ("u31d8aba9dff04c75242f2a2097b8adae")
 
 def restartBot():
 	print ("[ INFO ] BOT RESETTED")
