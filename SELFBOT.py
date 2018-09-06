@@ -15,7 +15,7 @@ try:
 				with open("authToken.txt", "r") as token:
 					authToken = token.read()
 					if not authToken:
-						client = LINE("EwWb6BCwJG0fHV9owv5b.Sp/s6yipA4kI8lGDz1Jc/W.YhyM6+FHSoYlQrfAEwzYi4d4O316q1ZG07vZToZB3EY=")   #PH-13
+						client = LINE("EwuDzAX1HOChhzFJMivb.Sp/s6yipA4kI8lGDz1Jc/W./IDEYRL3fL3zmq9ikK8ECpVJH4UzuQa9BsSXAgUOX+U=")   #PH-13
 						with open("authToken.txt","w") as token:
 							token.write(client.authToken)
 						continue
@@ -40,11 +40,17 @@ clientStart = time.time()
 clientPoll = OEPoll(client)
 
 languageOpen = codecs.open("language.json","r","utf-8")
+tagmeOpen = codecs.open("tag.json","r","utf-8")
+blacklistOpen = codecs.open("blacklist.json","r","utf-8")
+setting2Open = codecs.open("setting2.json","r","utf-8")
 readOpen = codecs.open("read.json","r","utf-8")
 settingsOpen = codecs.open("setting.json","r","utf-8")
 unsendOpen = codecs.open("unsend.json","r","utf-8")
 
 language = json.load(languageOpen)
+tagme = json.load(tagmeOpen)
+blacklist = json.load(blacklistOpen)
+setting2 = json.load(setting2Open)
 read = json.load(readOpen)
 settings = json.load(settingsOpen)
 unsend = json.load(unsendOpen)
@@ -105,6 +111,9 @@ def backupData():
 	try:
 		backup = read
 		f = codecs.open('read.json','w','utf-8')
+		json.dump(backup, f, sort_keys=True, indent=4, ensure_ascii=False)
+		backup = tagme
+		f = codecs.open('tag.json','w','utf-8')
 		json.dump(backup, f, sort_keys=True, indent=4, ensure_ascii=False)
 		backup = settings
 		f = codecs.open('setting.json','w','utf-8')
@@ -967,21 +976,90 @@ def clientBot(op):
 								client.sendMessage(group, "[ Broadcast ]\n{}".format(str(txt)))
 							client.sendMessage(to, "Berhasil broadcast ke {} group".format(str(len(groups))))
 
-
+						elif cmd.startswith("unsend "):
+							sep = text.split(" ")
+							args = text.replace(sep[0] + " ","")
+							mes = int(sep[1])
+							#try:
+								#mes = int(args[1])
+							#except:
+								#mes = 1
+							M = client.getRecentMessagesV2(to, 1001)
+							MId = []
+							for ind,i in enumerate(M):
+								if ind == 0:
+									pass
+								else:
+									if i._from == client.profile.mid:
+										MId.append(i.id)
+										if len(MId) == mes:
+											break
+							def unsMes(id):
+								client.unsendMessage(id)
+							for i in MId:
+								thread1 = threading.Thread(target=unsMes, args=(i,))
+								thread1.daemon = True
+								thread1.start()
+								thread1.join()
+							client.sendMessage(to, "「UNSEND」\nSuccess unsend {} message.".format(len(MId)))
+						elif cmd == "dusta on":
+								if to in detectUnsend:
+									client.sendMessage(to, "「DETECT UNSEND」\nDetect unsend telah aktif di group {}".format(client.getGroup(to).name))
+								else:
+									detectUnsend.append(to)
+									client.sendMessage(to, "「DETECT UNSEND」\nBerhasil mengaktifkan detect unsend di group {}".format(client.getGroup(to).name))
+						elif cmd == "dusta off":
+								if to in detectUnsend:
+									detectUnsend.remove(to)
+									client.sendMessage(to, "「DETECT UNSEND」\nBerhasil menonaktifkan detect unsend di group {}".format(client.getGroup(to).name))
+								else:
+									client.sendMessage(to, "「DETECT UNSEND」\nDetect unsend telah nonaktif di group {}".format(client.getGroup(to).name))
+						elif cmd == "delmentionme":
+								del tagme['ROM'][to]
+								client.sendMessage(to, "「DEL MENTIONME」\nBerhasil menghapus data Mention di group \n{}".format(client.getGroup(to).name))
+						elif cmd == "mentionme":
+								if to in tagme['ROM']:
+									moneys = {}
+									msgas = ''
+									for a in tagme['ROM'][to].items():
+										moneys[a[0]] = [a[1]['msg.id'],a[1]['waktu']] if a[1] is not None else idnya
+									sort = sorted(moneys)
+									sort.reverse()
+									sort = sort[0:]
+									msgas = '[Mention Me]'
+									h = []
+									no = 0
+									for m in sort:
+										has = ''
+										nol = -1
+										for kucing in moneys[m][0]:
+											nol+=1
+											has+= '\nline://nv/chatMsg?chatId={}&messageId={} \n{}'.format(to,kucing,humanize.naturaltime(datetime.fromtimestamp(moneys[m][1][nol]/1000)))
+										h.append(m)
+										no+=1
+										if m == sort[0]:
+											msgas+= '\n{}. @!{}x{}'.format(no,len(moneys[m][0]),has)
+										else:
+											msgas+= '\n\n{}. @!{}x{}'.format(no,len(moneys[m][0]),has)
+									client.sendMention(to, msgas, h)
+								else:
+									msgas = 'Sorry @!In {} nothink get a mention'.format(client.getGroup(to).name)
+									client.sendMention(to, msgas, [sender])
 						elif cmd == 'mentionall':
 							group = client.getGroup(to)
 							midMembers = [contact.mid for contact in group.members]
-							midSelect = len(midMembers)//100
+							midSelect = len(midMembers)//20
 							for mentionMembers in range(midSelect+1):
 								no = 0
-								ret_ = "╔════➢ Mention Members "
+								ret_ = "╔════➢ Mention Members"
 								dataMid = []
-								for dataMention in group.members[mentionMembers*100 : (mentionMembers+1)*100]:
+								for dataMention in group.members[mentionMembers*20 : (mentionMembers+1)*20]:
 									dataMid.append(dataMention.mid)
 									no += 1
 									ret_ += "\n╠ {}. @!".format(str(no))
 								ret_ += "\n╚════➢ Total {} Members".format(str(len(dataMid)))
 								client.sendMention(to, ret_, dataMid)
+								client.sendMessage(to, "Total {} Members".format(str(len(midMembers))))
 						elif cmd == "lurk on":
 							tz = pytz.timezone("Asia/Jakarta")
 							timeNow = datetime.now(tz=tz)
