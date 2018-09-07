@@ -76,6 +76,19 @@ def waktu(self,secs):
 	days, hours = divmod(hours, 24)
 	return '%02d Hari %02d Jam %02d Menit %02d Detik' % (days, hours, mins, secs)
 
+def delExpire():
+    if temp_flood != {}:
+        for tmp in temp_flood:
+            if temp_flood[tmp]["expire"] == True:
+                if time.time() - temp_flood[tmp]["time"] >= 3*10:
+                    temp_flood[tmp]["expire"] = False
+                    temp_flood[tmp]["time"] = time.time()
+                    try:
+                        userid = "https://line.me/ti/p/~" + puy.profile.userid
+                        puy.sendFooter(tmp, "Spam is over , Now Bots Actived !", str(userid), "http://dl.profile.line-cdn.net/"+puy.getContact(puyMid).pictureStatus, puy.getContact(puyMid).displayName)
+                    except Exception as error:
+                        logError(error) 
+			
 def logError(text):
     client.log("[ ERROR ] {}".format(str(text)))
     tz = pytz.timezone("Asia/Makassar")
