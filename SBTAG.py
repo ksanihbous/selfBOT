@@ -56,7 +56,12 @@ settings = json.load(settingsOpen)
 unsend = json.load(unsendOpen)
 
 offbot = []
+msg_dict = {}
+msg_image={}
+msg_video={}
+msg_sticker={}
 detectUnsend = []
+temp_flood = {}
 simisimi = []
 owner = ("u31d8aba9dff04c75242f2a2097b8adae")
 
@@ -90,6 +95,36 @@ def logError(text):
     with open("errorLog.txt","a") as error:
         error.write("\n[{}] {}".format(str(time), text))
 
+def changeVideoAndPictureProfile(pict, vids):
+    try:
+        files = {'file': open(vids, 'rb')}
+        obs_params = client.genOBSParams({'oid': clientMID, 'ver': '2.0', 'type': 'video', 'cat': 'vp.mp4', 'name': 'Hello_World.mp4'})
+        data = {'params': obs_params}
+        r_vp = client.server.postContent('{}/talk/vp/upload.nhn'.format(str(client.server.LINE_OBS_DOMAIN)), data=data, files=files)
+        if r_vp.status_code != 201:
+            return "Failed update profile"
+        client.updateProfilePicture(pict, 'vp')
+        return "Success update profile"
+    except Exception as e:
+        raise Exception("Error change video and picture profile %s"%str(e))
+        
+def changeProfileVideo(to):
+    if settings['changevp']['picture'] == None:
+        return client.sendMessage(to, "Foto tidak ditemukan")
+    elif settings['changevp']['video'] == None:
+        return client.sendMessage(to, "Video tidak ditemukan")
+    else:
+        path = settings['changevp']['video']
+        files = {'file': open(path, 'rb')}
+        obs_params = client.genOBSParams({'oid': client.getProfile().mid, 'ver': '2.0', 'type': 'video', 'cat': 'vp.mp4'})
+        data = {'params': obs_params}
+        r_vp = client.server.postContent('{}/talk/vp/upload.nhn'.format(str(client.server.LINE_OBS_DOMAIN)), data=data, files=files)
+        if r_vp.status_code != 201:
+            return client.sendMessage(to, "Gagal update profile")
+        path_p = settings['changevp']['picture']
+        settings['changevp']['status'] = False
+        client.updateProfilePicture(path_p, 'vp')
+	
 def timeChange(secs):
 	mins, secs = divmod(secs,60)
 	hours, mins = divmod(mins,60)
