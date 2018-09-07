@@ -1046,9 +1046,9 @@ def clientBot(op):
 									dataMid.append(dataMention.mid)
 									no += 1
 									ret_ += "\n╠ {}. @!".format(str(no))
-								ret_ += "\n╚════➢ Total {} Members".format(str(len(dataMid)))
+								ret_ += "\n╚════➢ Target {} ᴀʜʟɪ ᴋᴜʙᴜʀ".format(str(len(dataMid)))
 								client.sendMention(to, ret_, dataMid)
-								client.sendMessage(to, "Total {} Members".format(str(len(midMembers))))
+								client.sendMessage(to, "Total {} ᴄᴀʟᴏɴ ᴀʟᴍᴀʀʜᴜᴍ".format(str(len(midMembers))))
 						elif cmd == "lurk on":
 							tz = pytz.timezone("Asia/Jakarta")
 							timeNow = datetime.now(tz=tz)
