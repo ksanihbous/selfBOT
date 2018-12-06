@@ -15,7 +15,7 @@ try:
 				with open("authTokensb.txt", "r") as token:
 					authToken = token.read()
 					if not authToken:
-						client = LINE()
+						client = LINE("EzZpwhfchmVNbryms7zb.Sp/s6yipA4kI8lGDz1Jc/W.sPOHIrHxu6RlV1roh9ey2VjxHyBTTGMnYqsrICD5XWE=")
 						with open("authTokensb.txt","w") as token:
 							token.write(client.authToken)
 						continue
